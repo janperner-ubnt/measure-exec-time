@@ -25,30 +25,47 @@ print(const std::string& prefix, duration_t d)
               << "\n";
 }
 
+void
+print_usage()
+{
+    std::cout << "usage: measure-exec-time <no. of processes running in parralel> <command>"
+              << std::endl;
+}
+
 } // namespace
 
 int
 main(int argc, char* argv[])
 {
-    assert(argc == 3);
-    const auto max_clients = std::atoi(argv[1]);
-    const auto cmd = argv[2];
+    try {
+        if (argc != 3) {
+            throw std::logic_error("invalid number of arguments");
+        }
 
-    const auto total_start = now();
-    std::vector<std::future<duration_t>> tasks;
-    for (auto i = 0; i < max_clients; ++i) {
-        tasks.push_back(std::async(std::launch::async, [&cmd]() {
-            const auto start = now();
-            std::system(cmd);
-            return duration_t(now() - start);
-        }));
+        const auto max_clients = std::atoi(argv[1]);
+        const auto cmd = argv[2];
+
+        const auto total_start = now();
+        std::vector<std::future<duration_t>> tasks;
+        for (auto i = 0; i < max_clients; ++i) {
+            tasks.push_back(std::async(std::launch::async, [&cmd]() {
+                const auto start = now();
+                std::system(cmd);
+                return duration_t(now() - start);
+            }));
+        }
+
+        auto exec = duration_t();
+        for (auto& t : tasks) {
+            exec += t.get();
+        }
+
+        print("exec time", exec);
+        print("total time", now() - total_start);
+    } catch (const std::exception& ex) {
+        std::cerr << ex.what() << std::endl;
+        print_usage();
+    } catch (...) {
+        print_usage();
     }
-
-    auto exec = duration_t();
-    for (auto& t : tasks) {
-        exec += t.get();
-    }
-
-    print("exec time", exec);
-    print("total time", now() - total_start);
 }
