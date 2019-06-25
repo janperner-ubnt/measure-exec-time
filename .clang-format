@@ -1,0 +1,61 @@
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AlignConsecutiveDeclarations: false
+AlignTrailingComments: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: All
+AlwaysBreakAfterReturnType: None
+BasedOnStyle: Google
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBinaryOperators: All
+BreakBeforeBraces: Custom
+ColumnLimit: 100
+CompactNamespaces: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+DerivePointerAlignment: false
+FixNamespaceComments: true
+IndentWidth: 4
+NamespaceIndentation: None
+PointerAlignment: Left
+ReflowComments: true
+SortUsingDeclarations: true
+SpacesBeforeTrailingComments: 1
+TabWidth: 4
+UseTab: Never
+---
+Language: Cpp
+BraceWrapping: {
+    AfterClass: 'true'
+    AfterControlStatement: 'false'
+    AfterEnum : 'true'
+    AfterFunction : 'true'
+    AfterNamespace : 'false'
+    AfterStruct : 'true'
+    AfterUnion : 'true'
+    BeforeCatch : 'false'
+    BeforeElse : 'false'
+    IndentBraces : 'false'
+}
+IncludeCategories:
+  - Regex:	'^<[^/]+\.h>'
+    Priority:	5
+  - Regex:	'^<[^/]+\.hpp>'
+    Priority:	6
+  - Regex:	'^<[^/]+>'
+    Priority:	10
+  - Regex:	'^<.+\.h>'
+    Priority:	20
+  - Regex:	'^<.+\.hpp>'
+    Priority:	21
+  - Regex:	'^<.+>'
+    Priority:	25
+  - Regex:	'^".+\.h"'
+    Priority:	30
+  - Regex:	'^".+\.hpp"'
+    Priority:	31
